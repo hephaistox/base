@@ -1,0 +1,13 @@
+{:name "CAUMOND SASU"
+ :creation-date  #inst "2021-11-15T00:00:00.000"
+ :siren "905 156 402"
+ :naf-nace "6201Z"
+ :establishments [{:name "joze"
+                   :siret "905 156 402 00018"
+                   :adress "5 RUE SAINT DOMINIQUE 63350 JOZE"}]
+ :insee "G 6353 207627 0"
+ :rcs {:value "905 156 402 R.C.S. Clermont-Ferrand"
+       :date #inst "2021-11-15T00:00:00.000"}
+ :social-capital 1000
+ :activities [{:language "fr"
+               :descriptions ["Programmation", "conseil et   autres   activités   informatiques" "Conseil   enarchitecture  logicielles" "Conseil  en  supply  chain,  logistique  et  industrie" "Formation"]}]}

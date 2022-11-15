@@ -1,0 +1,5 @@
+{base.util.conf.outpace/env :dev
+ base.util.conf.outpace/http-server!url #config/env "HTTP-SERVER-URL"
+ base.util.conf.outpace/app-name "caumond sasu"
+
+ base.util.conf.outpace/dev!clj-nrepl-port 7888}

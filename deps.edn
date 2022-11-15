@@ -1,0 +1,69 @@
+{:cider-cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.11.60"}
+                           cider/cider-nrepl {:mvn/version "0.28.7"}
+                           cider/piggieback {:mvn/version "0.5.3"}}
+              :main-opts ["-m" "nrepl.cmdline" "--middleware"
+                          "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}
+ :deps {;; Basic
+        org.clojure/clojure {:mvn/version "1.11.1"}
+        ;; Http
+        http-kit/http-kit {:mvn/version "2.6.0"}
+        metosin/reitit-swagger {:mvn/version "0.5.18"}
+        metosin/reitit {:mvn/version "0.5.18"}
+        metosin/muuntaja {:mvn/version "0.6.8"}
+        metosin/ring-http-response {:mvn/version "0.9.3"}
+        amalloy/ring-gzip-middleware {:mvn/version "0.1.4"}
+        ring/ring {:mvn/version "1.9.6"}
+        ring/ring-ssl {:mvn/version "0.3.0"}
+        com.taoensso/sente {:mvn/version "1.17.0"}
+        ring/ring-anti-forgery {:mvn/version "1.3.0"}
+
+        prone/prone {:mvn/version "2021-04-23"}
+        ;; REPL
+        nrepl/nrepl {:mvn/version "1.0.0"}
+        cider/cider-nrepl {:mvn/version "0.28.7"} ;; Cider specific, should be emacs specific
+        refactor-nrepl/refactor-nrepl {:mvn/version "3.6.0"}
+
+        ;; Log
+        org.apache.logging.log4j/log4j-api {:mvn/version "2.19.0"}
+        org.clojure/tools.logging {:mvn/version "1.2.4"}
+        org.apache.logging.log4j/log4j-core {:mvn/version "2.19.0"}
+
+        ;; Babashka
+        babashka/fs  {:mvn/version "0.1.11"}
+        babashka/process {:mvn/version "0.3.11"}
+
+        ;; Configuration
+        com.outpace/config {:mvn/version "0.13.5"}
+        mount/mount {:mvn/version "0.1.16"}
+
+        ;; Toolings
+        danlentz/clj-uuid {:mvn/version "0.1.9"}
+        com.clojure-goes-fast/clj-memory-meter {:mvn/version "0.2.1"},
+        org.clojure/tools.cli {:mvn/version "1.0.214"}
+         }
+
+ :paths ["src/clj"
+         "src/cljc"
+         "env/dev/src/clj"
+         "src/cljs"
+         "resources"]
+
+ :aliases {:build {:deps {io.github.clojure/tools.build {:git/tag "v0.8.4" :git/sha "8c3cd69"}}
+                   :ns-default build}
+           :repl {:extra-paths ["env/dev/src/clj"
+                                "env/dev/src/cljc"
+                                "env/dev/resources"]}
+           :runner {:extra-deps {org.clojure/tools.namespace {:mvn/version "1.3.0"}
+                                 org.clojure/tools.reader {:mvn/version "1.3.6"}
+                                 com.cognitect/test-runner {:git/url "https://github.com/cognitect-labs/test-runner"
+                                                            :sha "7284cda41fb9edc0f3bc6b6185cfb7138fc8a023"}}
+                    :extra-paths ["env/test/resources"
+                                  "env/dev/resources"
+                                  "test/clj"
+                                  "test/cljc"
+                                  "test/cljs"]
+                    :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/log4j2-factory"
+                               "-Dlog4j.configurationFile=log4j2-silent.xml"]
+                    :exec-fn cognitect.test-runner.api/test
+                    :main-opts ["-m" "cognitect.test-runner"
+                                "-r" ".*[-\\.](expectations|test)(\\..*)?$"]}}}

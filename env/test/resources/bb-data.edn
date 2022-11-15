@@ -1,0 +1,32 @@
+{:exec "clj",
+ :apps [{:app-name "hello-world",
+         :react? true,
+         :testable? true,
+         :runnable? true}
+        {:app-name "optor",
+         :react? true,
+         :testable? true,
+         :runnable? true}
+        {:app-name "base",
+         :react? true,
+         :testable? true,
+         :runnable? true}
+        {:app-name "build",
+         :react? true,
+         :testable? true,
+         :runnable? false}
+        {:app-name "time-lib",
+         :react? true,
+         :testable? true,
+         :runnable? false}
+        {:app-name "everything",
+         :react? false,
+         :testable? false,
+         :runnable? false}],
+ :log-dir "logs/",
+ :clojure-dir "clojure/",
+ :script-dir "clojure/build/scripts/",
+ :outdated-dir "/everything/outdated/deps.edn",
+ :everything "everything",
+ :bb {:dir "bb/",
+      :repl-port 8888}}

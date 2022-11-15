@@ -1,0 +1,54 @@
+{:paths []
+ :deps {}
+ :tasks {:init ()
+         :requires [
+                    [babashka.fs :as fs]
+                    [babashka.process :as p]
+
+                    [clojure.string :as str]
+                    ;;
+                    ]
+         push {:doc "Push base repo in a public commit, the commit id of the base project is stored in `base-commit`"
+               :task (let [target-dir "target/"]
+                       (fs/delete-tree target-dir)
+                       (fs/create-dirs target-dir)
+                       (doseq [dir ["env/" "resources/" "src/" "test/"]]
+                         (fs/copy-tree dir
+                                       (str target-dir dir)
+                                       {:replace-existing true}))
+                       (doseq [file [".gitignore" "README.md" "bb.edn" "deps.edn" "log4j2-silent.xml"]]
+                         (fs/copy file
+                                  (str target-dir file)
+                                  {:replace-existing true}))
+                       (-> (p/process ["git" "init"]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
+                       (-> (p/process ["git" "add" "."]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
+                       (-> (p/process ["git" "commit" "--allow-empty" "-m" "automatic push"]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
+                       (-> (p/process ["git" "remote" "add" "origin" "git@github.com:caumond/base.git"]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
+                       (-> (p/process ["git" "push" "--force" "--set-upstream" "origin" "master"]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
+                       ;; (let [res (-> (p/process ["git" "log"]
+                       ;;                          {:out :string})
+                       ;;               p/check
+                       ;;               :out
+                       ;;               str/split-lines
+                       ;;               first
+                       ;;               (str/split (re-pattern " "))
+                       ;;               second)]
+                       ;;   (spit "target/commit" res)
+                       ;;   (println res))
+                       ;
+                       )}}}

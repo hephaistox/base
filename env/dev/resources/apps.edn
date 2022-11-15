@@ -1,0 +1,17 @@
+[{:app-name "optor"
+  :react? true
+  :testable? true
+  :runnable? true}
+ {:app-name "base"
+  :react? true
+  :testable? true
+  :runnable? true}
+ {:app-name "build"
+  :react? true
+  :skip-everything? true
+  :testable? true
+  :runnable? false}
+ {:app-name "everything"
+  :react? false
+  :testable? false
+  :runnable? false}]

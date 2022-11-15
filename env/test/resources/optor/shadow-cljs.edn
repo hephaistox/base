@@ -1,0 +1,39 @@
+{:nrepl {:port 8777}
+ :jvm-opts ["-Xmx1G"
+            "-Dclojure.tools.logging.factory=clojure.tools.logging.impl/log4j2-factory"]
+ :source-paths ["src/cljs" "src/cljc" "resources" "test/cljs" "../base/src/cljs" "../base/src/cljc" "../base/resources"]
+
+ :dependencies [[org.clojure/clojurescript "1.11.60"]
+                [reagent "1.1.1"]
+                [re-frame "1.3.0"]
+                [day8.re-frame/tracing "0.6.2"]
+                [com.taoensso/sente        "1.17.0"]
+                [clj-commons/pushy "0.3.10"]
+                [breaking-point "0.1.2"]
+                [binaryage/devtools "1.0.6"]
+                [day8.re-frame/http-fx "0.2.4"]
+                [day8.re-frame/re-frame-10x "1.5.0"]
+                [cider/cider-nrepl "0.28.6"]
+                [day8/shadow-git-inject "0.0.5"]]
+
+ :build-defaults {:build-hooks [(shadow-git-inject.core/hook)]}
+
+ :dev-http {8280 ["resources/public"]
+            8290 ["target/browser-test"]}
+
+ :builds {:app {:target     :browser
+                :output-dir "resources/public/js/compiled"
+                :asset-path "/js/compiled"
+                :modules {:app {:init-fn optor.core/init}}
+                :compiler-options {:closure-defines {optor.config/version :shadow-git-inject/build-iso-date-time}}
+                :devtools {:preloads [day8.re-frame-10x.preload]}
+                :dev {:compiler-options {:closure-defines {re-frame.trace.trace-enabled? true
+                                                           day8.re-frame.tracing.trace-enabled? true}}}
+                :release {:build-options {:ns-aliases {day8.re-frame.tracing day8.re-frame.tracing-stubs}}}}
+          :browser-test {:target    :browser-test
+                         :ns-regexp "-test$"
+                         :runner-ns shadow.test.browser
+                         :test-dir  "target/browser-test"}
+          :karma-test {:target    :karma
+                       :ns-regexp "-test$"
+                       :output-to "target/karma-test.js"}}}
