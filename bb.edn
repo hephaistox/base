@@ -12,6 +12,18 @@
                :task (let [target-dir "target/"]
                        (fs/delete-tree target-dir)
                        (fs/create-dirs target-dir)
+                       (-> (p/process ["git" "init"]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
+                       (-> (p/process ["git" "remote" "add" "origin" "git@github.com:caumond/base.git"]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
+                       (-> (p/process ["git" "pull" "origin" "master"]
+                                      {:out :inherit
+                                       :dir target-dir})
+                           p/check)
                        (doseq [dir ["env/" "resources/" "src/" "test/"]]
                          (fs/copy-tree dir
                                        (str target-dir dir)
@@ -20,10 +32,6 @@
                          (fs/copy file
                                   (str target-dir file)
                                   {:replace-existing true}))
-                       (-> (p/process ["git" "init"]
-                                      {:out :inherit
-                                       :dir target-dir})
-                           p/check)
                        (-> (p/process ["git" "add" "."]
                                       {:out :inherit
                                        :dir target-dir})
@@ -32,23 +40,17 @@
                                       {:out :inherit
                                        :dir target-dir})
                            p/check)
-                       (-> (p/process ["git" "remote" "add" "origin" "git@github.com:caumond/base.git"]
+                       (-> (p/process ["git" "push" "--force-with-lease" "--set-upstream" "origin" "master"]
                                       {:out :inherit
                                        :dir target-dir})
-                           p/check)
-                       (-> (p/process ["git" "push" "--force" "--set-upstream" "origin" "master"]
-                                      {:out :inherit
-                                       :dir target-dir})
-                           p/check)
-                       ;; (let [res (-> (p/process ["git" "log"]
-                       ;;                          {:out :string})
-                       ;;               p/check
-                       ;;               :out
-                       ;;               str/split-lines
-                       ;;               first
-                       ;;               (str/split (re-pattern " "))
-                       ;;               second)]
-                       ;;   (spit "target/commit" res)
-                       ;;   (println res))
-                       ;
-                       )}}}
+                          p/check)
+                       (let [res (-> (p/process ["git" "log"]
+                                                {:out :string})
+                                     p/check
+                                     :out
+                                     str/split-lines
+                                     first
+                                     (str/split (re-pattern " "))
+                                     second)]
+                         (spit "target/commit" res)
+                         (println res)))}}}
