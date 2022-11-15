@@ -36,14 +36,17 @@
                                       {:out :inherit
                                        :dir target-dir})
                            p/check)
-                       (-> (p/process ["git" "commit" "-m" "automatic push"]
-                                      {:out :inherit
-                                       :dir target-dir})
-                           p/check)
-                       (-> (p/process ["git" "push" "--force-with-lease" "--set-upstream" "origin" "master"]
-                                      {:out :inherit
-                                       :dir target-dir})
-                          p/check)
+                       (try
+                         (-> (p/process ["git" "commit" "-m" "automatic push"]
+                                        {:out :inherit
+                                         :dir target-dir})
+                             p/check)
+                         (-> (p/process ["git" "push" "--force-with-lease" "--set-upstream" "origin" "master"]
+                                        {:out :inherit
+                                         :dir target-dir})
+                             p/check)
+                         (catch Exception _e
+                           ))
                        ;; (let [res (-> (p/process ["git" "log"]
                        ;;                          {:out :string})
                        ;;               p/check
