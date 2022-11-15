@@ -48,7 +48,8 @@
                          (catch Exception _e
                            ))
                        (let [res (-> (p/process ["git" "log"]
-                                                {:out :string})
+                                                {:out :string
+                                                 :dir target-dir})
                                      p/check
                                      :out
                                      str/split-lines
