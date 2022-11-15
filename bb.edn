@@ -44,13 +44,14 @@
                                       {:out :inherit
                                        :dir target-dir})
                           p/check)
-                       (let [res (-> (p/process ["git" "log"]
-                                                {:out :string})
-                                     p/check
-                                     :out
-                                     str/split-lines
-                                     first
-                                     (str/split (re-pattern " "))
-                                     second)]
-                         (spit "target/base-commit" res)
-                         (println res)))}}}
+                       ;; (let [res (-> (p/process ["git" "log"]
+                       ;;                          {:out :string})
+                       ;;               p/check
+                       ;;               :out
+                       ;;               str/split-lines
+                       ;;               first
+                       ;;               (str/split (re-pattern " "))
+                       ;;               second)]
+                       ;;   (spit "target/base-commit" res)
+                       ;;   (println res))
+                       )}}}
