@@ -36,7 +36,7 @@
                                       {:out :inherit
                                        :dir target-dir})
                            p/check)
-                       (-> (p/process ["git" "commit" "--allow-empty" "-m" "automatic push"]
+                       (-> (p/process ["git" "commit" "-m" "automatic push"]
                                       {:out :inherit
                                        :dir target-dir})
                            p/check)
