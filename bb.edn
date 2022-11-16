@@ -45,8 +45,8 @@
                                         {:out :inherit
                                          :dir target-dir})
                              p/check)
-                         (catch Exception _e
-                           ))
+                         (catch Exception e
+                           (println "Error: " e)))
                        (let [res (-> (p/process ["git" "log"]
                                                 {:out :string
                                                  :dir target-dir})
