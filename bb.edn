@@ -56,5 +56,6 @@
                                      first
                                      (str/split (re-pattern " "))
                                      second)]
-                         (spit "target/base-commit" res)
+                         (spit "target/base-commit"
+                               res)
                          (println res)))}}}
