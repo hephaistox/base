@@ -6,9 +6,12 @@
           (java.text.SimpleDateFormat. "yyyy")))
 
 #?(:clj (defn this-year
-          []
-          (.format (java.util.Date.)))
+          ([date]
+           (.format year-format date))
+          ([]
+           (this-year (java.util.Date.))))
    :cljs (defn this-year
-           []
-           (cljs-time/year
-            (cljs-time/now))))
+           ([date]
+            (cljs-time/year date))
+           ([]
+            (this-year (cljs-time/now)))))

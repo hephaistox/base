@@ -5,15 +5,6 @@
    [base.repl]
    [base.endpoint.web.admin.index :as sut]))
 
-(deftest check-ports
-  (with-redefs [base.repl/get-nrepl-port-parameter (constantly {:clj-repl-port 10})]
-    (testing "Check ports are set"
-      (is (= 3
-             (count (select-keys (sut/port-view)
-                                 [:bb
-                                  :optor
-                                  :everything])))))))
-
 (deftest sorted-items
   (with-redefs [base.repl/get-nrepl-port-parameter (constantly {:clj-repl-port 10})]
     (testing "Check items can be sorted without exception"
