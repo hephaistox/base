@@ -33,7 +33,7 @@
   * `version` is the string to show the version
   "
   []
-  (fn [{:keys [social-networks footer-lists title quotation badge compagny-name version]}]
+  (fn [{:keys [social-networks footer-lists title quotation badge compagny-name release]}]
     [:footer.footer {:aria-labelledby "footer-heading"}
      [:div.footer-inner
       [:div.footer-columns-gap.xl:grid.xl:grid-cols-3
@@ -57,7 +57,7 @@
            [footer-link footer3]
            [footer-link footer4 "footer-link-2nd-and-4th"]]])]
       [:div.footer-compagny-block.relative
-       [version/component version]
+       [version/component release]
        [:p.footer-compagny-text title]
        ]]]))
 
