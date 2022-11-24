@@ -187,8 +187,7 @@
                "N/A")]
 
        [:h2 "Versionning"]
-       [:p "Clojure version: " (or (clojure-version)
-                                   "not-found")]]
+       [:p "Clojure version: " (clojure-version)]]
 
       [:div
        [:h2 "Non http ports"]
