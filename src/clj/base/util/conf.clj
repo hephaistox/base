@@ -34,10 +34,6 @@
   :start (start-conf)
   :stop (stop-conf))
 
-
-
-
-
 (defn read-param [key-path]
   (when-not (vector? key-path)
     (throw (ex-info "Key path should be a vector. I found " key-path)))
