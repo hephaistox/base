@@ -42,7 +42,7 @@
   (when-not (vector? key-path)
     (throw (ex-info "Key path should be a vector. I found " key-path)))
   (prn conf-state)
-  (let [value (when-not (instance? mount.core.NotStartedState @conf-state)
+  (let [value (when-not (instance? mount.core.NotStartedState conf-state)
                 (prot/read-conf-param @conf-state key-path))]
     (log/trace "Read key-path" key-path "= " value)
     value))
