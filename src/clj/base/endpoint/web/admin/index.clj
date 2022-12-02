@@ -60,64 +60,76 @@
 (defn menu-items
   "Create menu items"
   []
-  [{:message "Throw an exception"
-    :category "Test"
-    :uri "admin/throw-exception"}
-   {:message "Shadow dashboard"
-    :category "Dev"
-    :uri "http://localhost:9630/build/app"}
-   {:message "Cljs browser test"
-    :category "Dev"
-    :uri (str "http://localhost:" (get (assemble-port-view)
-                                       "target/browser-test"))}
-   {:message "Index"
-    :category "Main"
-    :uri "/"}
-   {:message "404 page"
-    :category "Test"
-    :uri "this-page-doesnt-exists"}
-   {:message "Blank"
-    :category "Test"
-    :uri "/admin/blank"}
-   {:message "Swagger"
-    :category "Dev"
-    :uri "/api/doc/swagger-ui/index.html#/"}
-   {:message "Git repos"
-    :category "Dev"
-    :uri  "https://github.com/caumond?tab=repositories"}
-   {:message "Git project"
-    :category "Dev"
-    :uri "https://github.com/users/caumond/projects/1"}
-   {:message "Git base"
-    :category "Dev"
-    :uri "https://github.com/caumond/base"}
-   {:message "Git sas-caumond"
-    :category "Dev"
-    :uri "https://github.com/caumond/sas-caumond"}
-   {:message "Git optor"
-    :category "Dev"
-    :uri "https://github.com/caumond/optor"}
+  [{:message "Clever logs"
+    :category "Deploy"
+    :uri "https://console.clever-cloud.com/organisations/orga_cb5862a9-e6bd-4085-9591-26d3110acad1/applications/app_b2f3c7a7-b999-448b-8de5-6390cc5aa2cf"}
    {:message "Docker hub"
     :category "Deploy"
     :uri "https://hub.docker.com/repositories"}
-   {:message "Clever cloud"
-    :category "Dev"
-    :uri "https://console.clever-cloud.com/organisations/orga_cb5862a9-e6bd-4085-9591-26d3110acad1"}
+   {:message "Sas actions"
+    :category "Deploy"
+    :uri "https://github.com/caumond/sas-caumond/actions"}
+
+   {:message "Website"
+    :category "Development"
+    :uri "/"}
+   {:message "Shadow dashboard"
+    :category "Development"
+    :uri "http://localhost:9630/build/app"}
+   {:message "Swagger"
+    :category "Development"
+    :uri "/api/doc/swagger-ui/index.html#/"}
+   {:message "Cljs browser test"
+    :category "Development"
+    :uri (str "http://localhost:" (get-in (assemble-port-view)
+                                          ["optor" "target/browser-test"]))}
    {:message "Devcards"
-    :category "Dev"
+    :category "Development"
     :uri "/admin/devcards"}
-   {:message "Mermaid"
-    :category "Doc"
-    :uri "https://mermaid-js.github.io/mermaid/#/n00b-syntaxReference"}
-   {:message "Markdown"
-    :category "Doc"
-    :uri "https://www.markdownguide.org/cheat-sheet/"}
+   {:message "404 page"
+    :category "Development"
+    :uri "this-page-doesnt-exists"}
+   {:message "Blank"
+    :category "Development"
+    :uri "/admin/blank"}
+   {:message "Throw an exception"
+    :category "Development"
+    :uri "admin/throw-exception"}
+
+   {:message "Repos"
+    :category "Git"
+    :uri  "https://github.com/caumond?tab=repositories"}
+   {:message "Project"
+    :category "Git"
+    :uri "https://github.com/users/caumond/projects/1"}
+   {:message "Git base"
+    :category "Git"
+    :uri "https://github.com/caumond/base"}
+   {:message "sas-caumond"
+    :category "Git"
+    :uri "https://github.com/caumond/sas-caumond"}
+   {:message "Optor"
+    :category "Git"
+    :uri "https://github.com/caumond/optor"}
+   {:message "Website"
+    :category "Production"
+    :uri "http://app-b2f3c7a7-b999-448b-8de5-6390cc5aa2cf.cleverapps.io/"}
+   {:message "Swagger"
+    :category "Production"
+    :uri "https://app-b2f3c7a7-b999-448b-8de5-6390cc5aa2cf.cleverapps.io/api/doc/swagger-ui/index.html#/"}
+
    {:message "Tailwind"
     :category "Tooling documentation"
     :uri "https://tailwindcss.com/docs/"}
    {:message "Clojure docs"
     :category "Tooling documentation"
-    :uri "https://clojuredocs.org/"}])
+    :uri "https://clojuredocs.org/"}
+   {:message "Mermaid"
+    :category "Tooling documentation"
+    :uri "https://mermaid-js.github.io/mermaid/#/n00b-syntaxReference"}
+   {:message "Markdown"
+    :category "Tooling documentation"
+    :uri "https://www.markdownguide.org/cheat-sheet/"}])
 
 (defn sorted-items
   "Create categories of menu item"

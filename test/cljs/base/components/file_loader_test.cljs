@@ -6,7 +6,7 @@
    ))
 
 (deftest component
-  (testing ""
+  (testing "No parameter raises an error"
       (is (= [:div "Error in the component parameters"]
              (sut/component {})
              ))))

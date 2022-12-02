@@ -1,28 +1,26 @@
 (ns base.user
-  "Default namespace in the repl,
+  "All subprojects namespaces Default namespace in the repl,
   Contains all necessary functions to start the app"
   (:require
+   [clojure.edn :as edn]
    [clojure.tools.namespace.repl :as tn]
 
-   [cider.nrepl :as nrepl-mw]
    [clj-memory-meter.core :as mm]
    [mount.core :as mount]
    [outpace.config.repl]
    [prone.middleware :as prone]
    [ring.middleware.reload :as mr]
 
-   [base.domain.apps :as apps]
-   [base.domain.apps-load :as apps-load]
    [base.log :as log]
-   [base.repl :as repl]
+   [base.repl-server :as repl]
+;
    ))
 
-(def apps
-  (apps-load/load-cfg))
-
-;; Is the list of package prefix to be scanned by prone
 (def runnables
-  (vec (apps/runnables apps)))
+  "List of directories"
+  (edn/read-string
+   (slurp
+    "base_dirs.edn")))
 
 (defn wrap-nocache
   "Dev wrapper to prevent caching"
@@ -39,9 +37,11 @@
                        [(str v "/src/clj")
                         (str v "/src/cljc")])
                      runnables)]
+    (log/info "Listen to the following dirs: " (pr-str dirs))
     (-> handler
         (mr/wrap-reload {:dirs dirs}))))
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn dev-middlewares
   "Add dev middlewares"
   [handler]
@@ -53,13 +53,7 @@
 (defn start
   "Start repl"
   [& _args]
-  (try
-    (let [middleware (conj nrepl-mw/cider-middleware 'refactor-nrepl.middleware/wrap-refactor)]
-      (repl/start-repl middleware
-                       {:nrepl-port 4000}))
-    :started
-    (catch Exception e
-      (log/error "Uncaught exception" e))))
+  (repl/start-repl))
 
 #_(defn start []
   ;(with-logging-status)
@@ -71,14 +65,17 @@
 (defn stop []
   (mount/stop))
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn refresh []
   (stop)
   (tn/refresh))
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn refresh-all []
   (stop)
   (tn/refresh-all))
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn go
   "starts all states defined by defstate"
   []
@@ -86,6 +83,7 @@
   (start)
   :ready)
 
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn reset
   "stops all states defined by defstate, reloads modified source files, and restarts the states"
   []
@@ -93,6 +91,7 @@
   #_(tn/refresh :after 'dev/go))
 
 ;; See https://github.com/clojure-goes-fast/clj-memory-meter, for details
-(defn measure-time-sample
+ #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+ (defn measure-time-sample
   []
   (mm/measure "hello world"))

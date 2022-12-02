@@ -8,6 +8,19 @@
                     [clojure.string :as str]
                     ;;
                     ]
+         clean {:doc "Clean the project"
+                :task (do
+                        (fs/delete-tree "target/"))}
+         test {:doc "Test the app"
+               :task (do
+                       (-> (p/process ["npx" "shadow-cljs" "compile" "karma-test"]
+                                      {:out :inherit
+                                       :dir "."})
+                           p/check)
+                       (-> (p/process ["npx" "karma" "start" "--single-run"]
+                                      {:out :inherit
+                                       :dir "."})
+                           p/check))}
          push {:doc "Push base repo in a public commit, the commit id of the base project is stored in `base-commit`"
                :task (let [target-dir "target/"]
                        (fs/delete-tree target-dir)
