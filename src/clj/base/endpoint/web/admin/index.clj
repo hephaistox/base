@@ -6,7 +6,7 @@
    [mount.tools.graph :as graph]
 
    [base.log :as log]
-   [base.repl :as repl]
+   [base.repl-server :as repl]
 ;
    ))
 
@@ -81,8 +81,8 @@
     :uri "/api/doc/swagger-ui/index.html#/"}
    {:message "Cljs browser test"
     :category "Development"
-    :uri (str "http://localhost:" (get (assemble-port-view)
-                                       "target/browser-test"))}
+    :uri (str "http://localhost:" (get-in (assemble-port-view)
+                                          ["optor" "target/browser-test"]))}
    {:message "Devcards"
     :category "Development"
     :uri "/admin/devcards"}
