@@ -6,7 +6,7 @@
    [mount.tools.graph :as graph]
 
    [base.log :as log]
-   [base.repl :as repl]
+   [base.repl-server :as repl]
 ;
    ))
 
@@ -68,7 +68,7 @@
     :uri "https://hub.docker.com/repositories"}
    {:message "Sas actions"
     :category "Deploy"
-    :uri "https://github.com/caumond/sas-caumond/actions"}
+    :uri "https://github.com/hephaistox/sas-caumond/actions"}
 
    {:message "Website"
     :category "Development"
@@ -98,19 +98,16 @@
 
    {:message "Repos"
     :category "Git"
-    :uri  "https://github.com/caumond?tab=repositories"}
-   {:message "Project"
-    :category "Git"
-    :uri "https://github.com/users/caumond/projects/1"}
+    :uri  "https://github.com/hephaistox?tab=repositories"}
    {:message "Git base"
     :category "Git"
-    :uri "https://github.com/caumond/base"}
+    :uri "https://github.com/hephaistox/base"}
    {:message "sas-caumond"
     :category "Git"
-    :uri "https://github.com/caumond/sas-caumond"}
+    :uri "https://github.com/hephaistox/sas-caumond"}
    {:message "Optor"
     :category "Git"
-    :uri "https://github.com/caumond/optor"}
+    :uri "https://github.com/hephaistox/optor"}
    {:message "Website"
     :category "Production"
     :uri "http://app-b2f3c7a7-b999-448b-8de5-6390cc5aa2cf.cleverapps.io/"}
@@ -129,7 +126,24 @@
     :uri "https://mermaid-js.github.io/mermaid/#/n00b-syntaxReference"}
    {:message "Markdown"
     :category "Tooling documentation"
-    :uri "https://www.markdownguide.org/cheat-sheet/"}])
+    :uri "https://www.markdownguide.org/cheat-sheet/"}
+   {:message "Babashka"
+    :category "Tooling documentation"
+    :uri "https://babashka.org/"}
+   {:message "Reframe"
+    :category "Tooling documentation"
+    :uri "https://day8.github.io/re-frame/"}
+
+   {:message "Slack"
+    :category "Organization"
+    :uri "https://optor.slack.com/"}
+   {:message "Project tasks"
+    :category "Organization"
+    :uri "https://app.shortcut.com/caumond/stories"}
+   {:message "Shared files (365)"
+    :category "Organization"
+    :uri "https://mateuszmazurczaksoftware.sharepoint.com/sites/MateuszMazurczakbusinessandsoftware2/SitePages/Home.aspx"}
+   ])
 
 (defn sorted-items
   "Create categories of menu item"

@@ -1,6 +1,5 @@
 (ns base.user
-  "All subprojects namespaces Default namespace in the repl,
-  Contains all necessary functions to start the app"
+  "Will be `refer :all` in the subproject `user` namespace, default namepsace for subproject REPL"
   (:require
    [clojure.edn :as edn]
    [clojure.tools.namespace.repl :as tn]
