@@ -6,7 +6,7 @@
    [mount.tools.graph :as graph]
 
    [base.log :as log]
-   [base.repl-server :as repl]
+   [base.repl :as repl]
 ;
    ))
 
@@ -68,7 +68,7 @@
     :uri "https://hub.docker.com/repositories"}
    {:message "Sas actions"
     :category "Deploy"
-    :uri "https://github.com/hephaistox/sas-caumond/actions"}
+    :uri "https://github.com/caumond/sas-caumond/actions"}
 
    {:message "Website"
     :category "Development"
@@ -81,8 +81,8 @@
     :uri "/api/doc/swagger-ui/index.html#/"}
    {:message "Cljs browser test"
     :category "Development"
-    :uri (str "http://localhost:" (get-in (assemble-port-view)
-                                          ["optor" "target/browser-test"]))}
+    :uri (str "http://localhost:" (get (assemble-port-view)
+                                       "target/browser-test"))}
    {:message "Devcards"
     :category "Development"
     :uri "/admin/devcards"}
@@ -98,16 +98,16 @@
 
    {:message "Repos"
     :category "Git"
-    :uri  "https://github.com/hephaistox?tab=repositories"}
+    :uri  "https://github.com/caumond?tab=repositories"}
    {:message "Git base"
     :category "Git"
-    :uri "https://github.com/hephaistox/base"}
+    :uri "https://github.com/caumond/base"}
    {:message "sas-caumond"
     :category "Git"
-    :uri "https://github.com/hephaistox/sas-caumond"}
+    :uri "https://github.com/caumond/sas-caumond"}
    {:message "Optor"
     :category "Git"
-    :uri "https://github.com/hephaistox/optor"}
+    :uri "https://github.com/caumond/optor"}
    {:message "Website"
     :category "Production"
     :uri "http://app-b2f3c7a7-b999-448b-8de5-6390cc5aa2cf.cleverapps.io/"}

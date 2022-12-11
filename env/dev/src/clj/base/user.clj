@@ -1,10 +1,12 @@
 (ns base.user
-  "All subprojects namespaces Default namespace in the repl,
+  "Default namespace in the repl,
   Contains all necessary functions to start the app"
   (:require
+   [clojure.java.io :as io]
    [clojure.edn :as edn]
    [clojure.tools.namespace.repl :as tn]
 
+   [cider.nrepl :as nrepl-mw]
    [clj-memory-meter.core :as mm]
    [mount.core :as mount]
    [outpace.config.repl]
@@ -12,7 +14,7 @@
    [ring.middleware.reload :as mr]
 
    [base.log :as log]
-   [base.repl-server :as repl]
+   [base.repl :as repl]
 ;
    ))
 
@@ -53,7 +55,13 @@
 (defn start
   "Start repl"
   [& _args]
-  (repl/start-repl))
+  (try
+    (let [middleware (conj nrepl-mw/cider-middleware 'refactor-nrepl.middleware/wrap-refactor)]
+      (repl/start-repl middleware
+                       {:nrepl-port 4000}))
+    :started
+    (catch Exception e
+      (log/error "Uncaught exception" e))))
 
 #_(defn start []
   ;(with-logging-status)
@@ -75,7 +83,6 @@
   (stop)
   (tn/refresh-all))
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn go
   "starts all states defined by defstate"
   []
@@ -83,7 +90,6 @@
   (start)
   :ready)
 
-#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn reset
   "stops all states defined by defstate, reloads modified source files, and restarts the states"
   []
@@ -91,7 +97,6 @@
   #_(tn/refresh :after 'dev/go))
 
 ;; See https://github.com/clojure-goes-fast/clj-memory-meter, for details
- #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
- (defn measure-time-sample
+(defn measure-time-sample
   []
   (mm/measure "hello world"))

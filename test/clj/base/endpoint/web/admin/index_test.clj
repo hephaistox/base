@@ -2,11 +2,11 @@
   (:require
    [clojure.test :refer [deftest is testing]]
 
-   [base.repl-server]
+   [base.repl]
    [base.endpoint.web.admin.index :as sut]))
 
 (deftest sorted-items
-  (with-redefs [base.repl-server/get-nrepl-port-parameter (constantly {:clj-repl-port 10})]
+  (with-redefs [base.repl/get-nrepl-port-parameter (constantly {:clj-repl-port 10})]
     (testing "Check items can be sorted without exception"
       (let [m (sut/menu-items)]
         (is (sut/sorted-items m))))))

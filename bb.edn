@@ -1,7 +1,8 @@
 {:paths []
  :deps {}
  :tasks {:init ()
-         :requires [[babashka.fs :as fs]
+         :requires [
+                    [babashka.fs :as fs]
                     [babashka.process :as p]
 
                     [clojure.string :as str]
@@ -9,17 +10,7 @@
                     ]
          clean {:doc "Clean the project"
                 :task (do
-                        (fs/delete-tree "target/")
-                        (fs/delete-tree ".shadow-cljs/")
-                        (fs/delete-tree ".cache/")
-                        (fs/delete-tree ".node_modules/"))}
-         cljs-test {:doc "Test the cljs base app"
-                    :task (do
-                       ;;NOTE Setup is based on https://shadow-cljs.github.io/docs/UsersGuide.html#target-karma
-                            (-> (p/process ["script/test.sh"]
-                                           {:out :inherit
-                                            :dir "."})
-                                p/check))}
+                        (fs/delete-tree "target/"))}
          push {:doc "Push base repo in a public commit, the commit id of the base project is stored in `base-commit`"
                :task (let [target-dir "target/"]
                        (fs/delete-tree target-dir)
@@ -28,7 +19,7 @@
                                       {:out :inherit
                                        :dir target-dir})
                            p/check)
-                       (-> (p/process ["git" "remote" "add" "origin" "git@github.com:hephaistox/base.git"]
+                       (-> (p/process ["git" "remote" "add" "origin" "git@github.com:caumond/base.git"]
                                       {:out :inherit
                                        :dir target-dir})
                            p/check)

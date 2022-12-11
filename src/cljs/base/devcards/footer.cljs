@@ -66,6 +66,6 @@
                     :footer-lists footer-lists
                     :quotation "Making the world a better place through constructing elegant hierarchies."
                     :badge "https://tailwindui.com/img/logos/mark.svg?color=gray&shade=300",
-                    :compagny-name "Hephaistox"
+                    :compagny-name "SAS CAUMOND"
                     :release "2022-1"
-                    :title "© 2022 Hephaistox, Inc. All rights reserved!"}]]))
+                    :title "© 2020 SAS caumond, Inc. All rights reserved!"}]]))
